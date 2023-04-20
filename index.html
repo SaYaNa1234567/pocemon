@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css">
+        .item {
+            width: 150px;
+            height: 150px;
+            background-size:100%;
+            background-repeat: no-repeat;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            height: 200px;
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .active {
+            border:0px solid white;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="row">
+    </div>
+    
+<h4>Score:</h4><h4 class="score"></h4>
+    <script type="text/javascript">
+    //див-родитель
+    let row = document.querySelector(".row");
+    
+    //хранение картинок
+    let images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
+    let past_item = null;
+    let point = 0;
+    for(i=0; i<12; i++){
+        let item = document.createElement("div");
+        row.appendChild(item);
+        item.classList.add("item");
+        let index = Math.round(Math.random()*(images.length-1));
+        item.style.backgroundImage = "url("+images[index]+")";
+                item.image = images[index];
+        images.splice(index, 1);
+        item.onclick = function(){
+            past_item = item;
+            item.classList.add('active');
+
+            if(past_item== null){
+                past_item= item;
+            }
+
+            else if(item.image == past_item.image){
+                past_item.style.background = "white";
+                item.style.background = "white";
+                past_item=null;
+                point= point +2;
+            score.innerHTML = point;
+            }
+
+            else if(item.image != past_item.image){
+                past_item.classList.remove('active');
+                item.classList.remove('active');
+                past_item=null;
+               point= point-1;
+            score.innerHTML = point;
+            }
+
+        }
+    }
+    
+
+    </script>
+</body>
+</html>
